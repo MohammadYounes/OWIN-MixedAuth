@@ -67,7 +67,7 @@ OWIN middleware implementation mixing Windows and Forms Authentication.
 
 # Pitfalls
 
-   * Internet Explorer XHR ignores Bearer Authorization header after authenticating a Windows Account?
+   * **Internet Explorer XHR ignores Bearer Authorization header after authenticating a Windows Account?**
    
      When IE authenticates a Windows Account against a given domain, it gets added to the browser credentials cache, and will be used with all sub-sequent requests to the same domain, ignoring any explicitly set Authorization header.
      
