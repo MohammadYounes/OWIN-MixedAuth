@@ -66,4 +66,5 @@ OWIN middleware implementation mixing Windows and Forms Authentication.
 
 
 
+------
 ##### Please [share any issues](https://github.com/MohammadYounes/OWIN-MixedAuth/issues?state=open) you may have.
