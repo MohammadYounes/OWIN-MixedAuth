@@ -1,8 +1,26 @@
 # OWIN Mixed Authentication
 
-OWIN middleware implementation mixing Windows and Forms Authentication. 
+OWIN middleware implementation mixing Windows and Forms Authentication.
 
 ![mixed-auth](https://cloud.githubusercontent.com/assets/4712046/4690732/0bbe62f8-56f8-11e4-8757-2d10cdeca17e.png)
+
+# Running the samples
+
+Before running the samples, make sure to unlock `windowsAuthentication` section:
+
+### IIS
+1. Open IIS Manager, select the server node, then Feature Delegation.
+2. Set `Authentication - Windows` to `Read/Write`
+
+ ![unlock-section](https://cloud.githubusercontent.com/assets/4712046/4689687/d28f8df8-56c6-11e4-9b88-8f5cb769ae93.png)
+
+### IIS Express
+1. Open **applicationhost.config** located at *$:\Users\{username}\Documents\IISExpress\config*
+2. Search for `windowsAuthentication` section and update `overrideModeDefault` value to `Allow`.
+
+  ```XML
+   <section name="windowsAuthentication" overrideModeDefault="Allow" />
+  ```
 
 # Usage
 
@@ -10,7 +28,7 @@ OWIN middleware implementation mixing Windows and Forms Authentication.
 
 2. Register `MixedAuth` in **Global.asax**
   ```C#
-  //add using statement 
+  //add using statement
   using MohammadYounes.Owin.Security.MixedAuth;
 
   public class MyWebApplication : HttpApplication
@@ -51,20 +69,6 @@ OWIN middleware implementation mixing Windows and Forms Authentication.
   </location>
   ```
   **Important!** Enabling windows authentication for a sub path requires `windowsAuthentication` section to be unlocked at a parent level.
-  ##### IIS
-  1. Open IIS Manager, select the server node, then Feature Delegation.
-  2. Set `Authentication - Windows` to `Read/Write`
-![unlock-section](https://cloud.githubusercontent.com/assets/4712046/4689687/d28f8df8-56c6-11e4-9b88-8f5cb769ae93.png)
-
-  ##### IIS Express
-  1. Open **applicationhost.config** located at *$:\Users\{username}\Documents\IISExpress\config*
-  2. Search for `windowsAuthentication` section and update `overrideModeDefault` value to `Allow`.
-
-     ```XML
-       <section name="windowsAuthentication" overrideModeDefault="Allow" />
-     ```
-
-
 
 ------
 ##### Please [share any issues](https://github.com/MohammadYounes/OWIN-MixedAuth/issues?state=open) you may have.
