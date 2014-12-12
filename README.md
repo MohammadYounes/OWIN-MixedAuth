@@ -4,6 +4,11 @@ OWIN middleware implementation mixing Windows and Forms Authentication.
 
 ![mixed-auth](https://cloud.githubusercontent.com/assets/4712046/4690732/0bbe62f8-56f8-11e4-8757-2d10cdeca17e.png)
 
+## Install with [NuGet](https://www.nuget.org/packages/OWIN-MixedAuth/)
+```
+PM> Install-Package OWIN-MixedAuth
+```
+
 # Running the samples
 
 Before running the samples, make sure to unlock `windowsAuthentication` section:

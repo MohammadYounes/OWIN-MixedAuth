@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>OWIN-MixedAuth</id>
+        <version>1.0.0</version>
+        <title>OWIN-MixedAuth</title>
+        <authors>Mohammad Younes</authors>
+        <owners>Mohammad Younes</owners>
+        <licenseUrl>https://github.com/MohammadYounes/OWIN-MixedAuth/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/MohammadYounes/OWIN-MixedAuth</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>OWIN middleware implementation mixing Windows and Forms Authentication.</description>
+        <summary>OWIN middleware implementation mixing Windows and Forms Authentication.</summary>
+        <copyright>Mohammad Younes, 2014</copyright>
+        <tags>owin mixed windows forms authentication</tags>
+        <dependencies>
+            <group targetFramework=".NETFramework4.5">
+                <dependency id="Microsoft.Owin" version="3.0.0" />
+                <dependency id="Microsoft.Owin.Security" version="3.0.0" />
+                <dependency id="Microsoft.Owin.Security.Cookies" version="3.0.0" />
+                <dependency id="Microsoft.Owin.Security.OAuth" version="3.0.0" />
+                <dependency id="Newtonsoft.Json" version="6.0.5" />
+                <dependency id="Owin" version="1.0" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="MohammadYounes.Owin.Security.MixedAuth\bin\Release\MohammadYounes.Owin.Security.MixedAuth.dll" target="lib\net45\MohammadYounes.Owin.Security.MixedAuth.dll" />
+        <file src="MohammadYounes.Owin.Security.MixedAuth\bin\Release\MohammadYounes.Owin.Security.MixedAuth.pdb" target="lib\net45\MohammadYounes.Owin.Security.MixedAuth.pdb" />
+    </files>
+</package>
