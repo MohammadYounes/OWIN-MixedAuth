@@ -17,6 +17,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.DirectoryServices;
 
 namespace MohammadYounes.Owin.Security.MixedAuth
 {
@@ -58,8 +59,30 @@ namespace MohammadYounes.Owin.Security.MixedAuth
                     // Microsoft.Owin.Security.AuthenticationManagerExtensions: ExternalLoginInfo GetExternalLoginInfo(AuthenticateResult result)
                     claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, logonUserIdentity.User.Value, null, Options.AuthenticationType));
 
-                    //could grab email from AD and add it to the claims list.
+                    // do we need this ?
                     //claimsIdentity.AddClaim(new Claim(ClaimTypes.WindowsAccountName, logonUserIdentity.Name));
+
+                    // grab email from AD and add it to the claims list.
+                    string userInQuestion = logonUserIdentity.Name.Split('\\')[1];
+                    string myDomain = logonUserIdentity.Name.Split('\\')[0]; // this is the domain that the user is in
+                    // the account that this program runs in should be authenticated in there                    
+                    DirectoryEntry entry = new DirectoryEntry("LDAP://" + myDomain);
+                    DirectorySearcher adSearcher = new DirectorySearcher(entry);
+
+                    adSearcher.SearchScope = SearchScope.Subtree;
+                    adSearcher.Filter = "(&(objectClass=user)(samaccountname=" + userInQuestion + "))";
+                    SearchResult userObject = adSearcher.FindOne();
+                    if (userObject != null)
+                    {
+                        if (userObject.Properties.PropertyNames.Cast<String>().Contains("mail"))
+                        {
+                            claimsIdentity.AddClaim(new Claim(ClaimTypes.Email, (String)userObject.Properties["mail"][0]));
+                        }
+                        else
+                        {
+                            claimsIdentity.AddClaim(new Claim(ClaimTypes.Email, (String)userObject.Properties["userprincipalname"][0]));
+                        }
+                    }
 
                     var ticket = new AuthenticationTicket(claimsIdentity, properties);
 
