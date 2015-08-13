@@ -76,4 +76,37 @@ Before running the samples, make sure to unlock `windowsAuthentication` section:
   **Important!** Enabling windows authentication for a sub path requires `windowsAuthentication` section to be unlocked at a parent level.
 
 ------
+
+#### Importing Custom Claims
+
+Adding custom claims in OWIN-MixedAuth is pretty straightforward, simply use `MixedAuthProvider` and place your own logic for fetching those custom claims. 
+
+The following example shows how to import user Email, Surname and GiveName from Active Directory:
+```C#
+// Enable mixed auth
+ app.UseMixedAuth(new MixedAuthOptions()
+ {
+   Provider = new MixedAuthProvider()
+   {
+     OnImportClaims = identity =>
+     {
+       List<Claim> claims = new List<Claim>();
+       using (var principalContext = new PrincipalContext(ContextType.Domain | ContextType.Machine))
+       {
+         using (UserPrincipal userPrincipal = UserPrincipal.FindByIdentity(principalContext, identity.Name))
+         {
+           if (userPrincipal != null)
+           {
+             claims.Add(new Claim(ClaimTypes.Email, userPrincipal.EmailAddress ?? string.Empty));
+             claims.Add(new Claim(ClaimTypes.Surname, userPrincipal.Surname ?? string.Empty));
+             claims.Add(new Claim(ClaimTypes.GivenName, userPrincipal.GivenName ?? string.Empty));
+           }
+         }
+       }
+       return claims;
+     }
+   }
+ }, cookieOptions);
+```
+------
 ##### Please [share any issues](https://github.com/MohammadYounes/OWIN-MixedAuth/issues?state=open) you may have.
