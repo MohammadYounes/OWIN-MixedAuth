@@ -6,6 +6,10 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using MVC.Models;
+using System.Security.Claims;
+using System.Collections.Generic;
+using System.DirectoryServices.AccountManagement;
+using MohammadYounes.Owin.Security.MixedAuth;
 
 namespace MVC
 {
@@ -35,7 +39,7 @@ namespace MVC
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
             };
-            app.UseCookieAuthentication(cookieOptions);            
+            app.UseCookieAuthentication(cookieOptions);
 
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
@@ -70,7 +74,32 @@ namespace MVC
             //As we are using LogonUserIdentity, its required to run in PipelineStage.PostAuthenticate
             //Register this after any middleware that uses stage marker PipelineStage.Authenticate
             //See http://www.asp.net/aspnet/overview/owin-and-katana/owin-middleware-in-the-iis-integrated-pipeline      
-            app.UseMixedAuth(cookieOptions);
+            // Enable mixed auth
+            app.UseMixedAuth(new MixedAuthOptions()
+            {
+                Provider = new MixedAuthProvider()
+                {
+                    OnImportClaims = identity =>
+                    {
+                        List<Claim> claims = new List<Claim>();
+
+                        using (var principalContext = new PrincipalContext(ContextType.Domain | ContextType.Machine))
+                        {
+                            using (UserPrincipal userPrincipal = UserPrincipal.FindByIdentity(principalContext, identity.Name))
+                            {
+                                if (userPrincipal != null)
+                                {
+                                    claims.Add(new Claim(ClaimTypes.Email, userPrincipal.EmailAddress ?? string.Empty));
+                                    claims.Add(new Claim(ClaimTypes.Surname, userPrincipal.Surname ?? string.Empty));
+                                    claims.Add(new Claim(ClaimTypes.GivenName, userPrincipal.GivenName ?? string.Empty));
+                                }
+                            }
+                        }
+                        return claims;
+                    }
+                }
+
+            }, cookieOptions);
         }
     }
 }
