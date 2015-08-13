@@ -1,4 +1,8 @@
 ﻿/// <copyright file="MixedAuthProvider.cs" auther="Mohammad Younes">
+/// 
+/// Based on GoogleAuthenticationProvider
+/// https://katanaproject.codeplex.com/SourceControl/latest#src/Microsoft.Owin.Security.Google/Provider/GoogleAuthenticationProvider.cs
+/// 
 /// Copyright 2014 Mohammad Younes. 
 /// https://github.com/MohammadYounes/Owin-MixedAuth
 /// 

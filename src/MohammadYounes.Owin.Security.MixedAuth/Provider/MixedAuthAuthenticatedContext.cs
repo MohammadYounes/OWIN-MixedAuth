@@ -1,4 +1,8 @@
 ﻿/// <copyright file="MixedAuthAuthenticatedContext.cs" auther="Mohammad Younes">
+/// 
+/// Based on GoogleAuthenticatedContext
+/// https://katanaproject.codeplex.com/SourceControl/latest#src/Microsoft.Owin.Security.Google/Provider/GoogleAuthenticatedContext.cs
+/// 
 /// Copyright 2014 Mohammad Younes. 
 /// https://github.com/MohammadYounes/Owin-MixedAuth
 /// 

@@ -1,4 +1,8 @@
 ﻿/// <copyright file="MixedAuthApplyRedirectContext.cs" auther="Mohammad Younes">
+/// 
+/// Based on GoogleApplyRedirectContext
+/// https://katanaproject.codeplex.com/SourceControl/latest#src/Microsoft.Owin.Security.Google/Provider/GoogleApplyRedirectContext.cs
+/// 
 /// Copyright 2014 Mohammad Younes. 
 /// https://github.com/MohammadYounes/Owin-MixedAuth
 /// 
@@ -27,7 +31,7 @@ namespace MohammadYounes.Owin.Security.MixedAuth
         /// Creates a new context object.
         /// </summary>
         /// <param name="context">The OWIN request context</param>
-        /// <param name="options">The Google OpenID middleware options</param>
+        /// <param name="options">The MixedAuth middleware options</param>
         /// <param name="properties">The authentication properties of the challenge</param>
         /// <param name="redirectUri">The initial redirect URI</param>
         public MixedAuthApplyRedirectContext(IOwinContext context, MixedAuthOptions options,

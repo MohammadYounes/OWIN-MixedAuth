@@ -1,4 +1,9 @@
 ﻿/// <copyright file="MixedAuthOptions.cs" auther="Mohammad Younes">
+/// 
+/// Based on OAuthAuthorizationServerOptions and GoogleAuthenticationOptions
+/// https://katanaproject.codeplex.com/SourceControl/latest#src/Microsoft.Owin.Security.OAuth/OAuthAuthorizationServerOptions.cs
+/// https://katanaproject.codeplex.com/SourceControl/latest#src/Microsoft.Owin.Security.Google/GoogleAuthenticationOptions.cs
+/// 
 /// Copyright 2014 Mohammad Younes. 
 /// https://github.com/MohammadYounes/Owin-MixedAuth
 /// 
