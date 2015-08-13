@@ -15,6 +15,7 @@ using Microsoft.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +42,11 @@ namespace MohammadYounes.Owin.Security.MixedAuth
                 var httpRequest = ((System.Web.HttpContextBase)context.Environment["System.Web.HttpContextBase"]).Request;
                 return httpRequest.LogonUserIdentity;
             };
+
+            OnImportClaims = identity =>
+            {
+                return new List<Claim>();
+            };
         }
 
         /// <summary>
@@ -59,7 +65,10 @@ namespace MohammadYounes.Owin.Security.MixedAuth
         /// </summary>
         public Func<IOwinContext, WindowsIdentity> OnGetLogonUserIdentity { get; set; }
 
-
+        /// <summary>
+        /// Gets or sets the delegate that is invoked to import the custom claims.
+        /// </summary>
+        public Func<WindowsIdentity, List<Claim>> OnImportClaims { get; set; }
 
 
         /// <summary>
@@ -89,6 +98,16 @@ namespace MohammadYounes.Owin.Security.MixedAuth
         public virtual WindowsIdentity GetLogonUserIdentity(IOwinContext context)
         {
             return OnGetLogonUserIdentity(context);
+        }
+
+        /// <summary>
+        /// Called when a user is authenticated to allow adding your own custom claims. 
+        /// </summary>
+        /// <param name="identity"></param>
+        /// <returns></returns>
+        public List<Claim> ImportClaims(WindowsIdentity identity)
+        {
+            return OnImportClaims(identity);
         }
     }
 }

@@ -58,8 +58,11 @@ namespace MohammadYounes.Owin.Security.MixedAuth
                     // Microsoft.Owin.Security.AuthenticationManagerExtensions: ExternalLoginInfo GetExternalLoginInfo(AuthenticateResult result)
                     claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, logonUserIdentity.User.Value, null, Options.AuthenticationType));
 
-                    //could grab email from AD and add it to the claims list.
-                    //claimsIdentity.AddClaim(new Claim(ClaimTypes.WindowsAccountName, logonUserIdentity.Name));
+                    // Import custom claims.
+                    List<Claim> customClaims = Options.Provider.ImportClaims(logonUserIdentity);
+                    claimsIdentity.AddClaims(customClaims
+                                                .Where(c => c.Type != ClaimTypes.NameIdentifier)
+                                                .Select(c => new Claim(c.Type, c.Value, c.ValueType, Options.AuthenticationType)));
 
                     var ticket = new AuthenticationTicket(claimsIdentity, properties);
 
