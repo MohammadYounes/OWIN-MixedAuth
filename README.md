@@ -20,7 +20,9 @@ Before running the samples, make sure to unlock `windowsAuthentication` section:
  ![unlock-section](https://cloud.githubusercontent.com/assets/4712046/4689687/d28f8df8-56c6-11e4-9b88-8f5cb769ae93.png)
 
 ### IIS Express
-1. Open **applicationhost.config** located at *$:\Users\\{username}\Documents\IISExpress\config* or at *$(SolutionDir)\\.vs\config*
+1. Open **applicationhost.config** located at:
+  * **Pre VS2015**: *$:\Users\\{username}\Documents\IISExpress\config* 
+  * **VS2015**: *$(SolutionDir)\\.vs\config*
 2. Search for `windowsAuthentication` section and update `overrideModeDefault` value to `Allow`.
 
   ```XML
