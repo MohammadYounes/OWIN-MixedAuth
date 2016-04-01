@@ -83,7 +83,7 @@ namespace MVC
                     {
                         List<Claim> claims = new List<Claim>();
 
-                        using (var principalContext = new PrincipalContext(ContextType.Domain | ContextType.Machine))
+                        using (var principalContext = new PrincipalContext(ContextType.Domain)) //or ContextType.Machine
                         {
                             using (UserPrincipal userPrincipal = UserPrincipal.FindByIdentity(principalContext, identity.Name))
                             {
